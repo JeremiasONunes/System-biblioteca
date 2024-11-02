@@ -8,19 +8,35 @@ yarn-error.log*
 
 # Arquivos de ambiente
 .env
+.env.local
+.env.*.local
 
 # Build e dist
 dist/
 build/
+tmp/
+temp/
 
 # Sistema de IDEs
 .vscode/
 .idea/
+*.sublime-workspace
+*.sublime-project
 
 # Sistema operacional
 .DS_Store
 Thumbs.db
+*.bak
 
 # Outros
 *.tgz
 *.gz
+*.zip
+*.tar
+*.rar
+*.7z
+*.swp
+
+# Arquivos de cache
+.cache/
+.pnp.*
