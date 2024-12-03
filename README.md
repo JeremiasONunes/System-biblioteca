@@ -168,7 +168,7 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
 
 ### Serviço de Livros
 - Cadastro de novos livros.
-- Atualização e remoção de livros.
+- Atualização de status de disponibilidade do livro.
 - Consulta de livros disponíveis.
 
 ### Serviço de Empréstimos
