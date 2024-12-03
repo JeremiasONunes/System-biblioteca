@@ -182,10 +182,14 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
 
 ### Serviço de Usuários
 
-**Cadastrar um novo usuário**
+- **Método**: POST
+- **URL**: http://localhost:3000/usuarios
+- **Método**: GET
+- **URL**: http://localhost:3000/usuarios
+- **Método**: GET
+- **URL**: http://localhost:3000/usuarios/id
 
-- Método: POST
-- URL: `http://localhost:3000/usuarios`
+
 - Body (JSON):
   ```json
   {
@@ -195,16 +199,6 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
     "nascimento": "1998-08-11"
   }
   ```
-
-**Serviços de usuários**
-
-- **Método**: POST
-- **URL**: http://localhost:3000/usuarios
-- **Método**: GET
-- **URL**: http://localhost:3000/usuarios
-- **Método**: GET
-- **URL**: http://localhost:3000/usuarios/id
-
 
 ### Serviço de Livros
 
