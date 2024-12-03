@@ -266,4 +266,4 @@ Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 
 4. **Abra um pull request no repositório original.**
 
-5. **Neste projeto foram construido apenas os microserviços ainda está em produção o front- end**
+5. **Neste projeto foram construido apenas os microserviços, ainda está em produção o front- end**
