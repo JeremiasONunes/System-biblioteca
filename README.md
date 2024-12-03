@@ -209,7 +209,7 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
 - **URL**: http://localhost:3000/livro
 - **Método**: GET
 - **URL**: http://localhost:3000/livro/id
-- **Método**: PUT
+- **Método**: PATCH
 - **URL**: http://localhost:3000/livro/id
 - **Método**: POST
 
