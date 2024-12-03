@@ -1,71 +1,137 @@
+
 # Sistema de Biblioteca
 
-Este é um projeto de gerenciamento de biblioteca baseado em uma arquitetura de micro serviços, desenvolvido com Node.js, Express, Sequelize e SQLite. O sistema é modular e inclui serviços para gerenciar usuários, livros e empréstimos.
+Este é um projeto de gerenciamento de biblioteca desenvolvido com arquitetura de **microserviços**, utilizando tecnologias como **Node.js**, **Express**, **Sequelize**, e **SQLite**. O sistema foi projetado para ser modular, permitindo fácil expansão e manutenção. Ele inclui serviços específicos para gerenciar **usuários**, **livros** e **empréstimos**.
 
-## Autoria
+## Autor
+
 **Jeremias de Oliveira Nunes**
+
+---
 
 ## Estrutura do Projeto
 
-A estrutura do projeto é organizada em pastas distintas para cada serviço:
+A estrutura do projeto segue uma organização modular, onde cada serviço possui suas próprias configurações e funcionalidades isoladas.
 
 ```
-System-biblioteca/
+system-biblioteca/
 ├── src/
-│   ├── index.js                # Arquivo principal do servidor
+│   ├── index.js                # Arquivo principal para iniciar o servidor
+│   ├── config/                 # Configurações globais do projeto
+│   │   └── config.json         # Configuração do Sequelize
+│   ├── migrations/             # Migrações globais do banco de dados
+│   ├── models/                 # Modelos globais do banco de dados
 │   ├── usuarios/               # Serviço de Usuários
-│   │   ├── config/
-│   │   │   └── config.json     # Configuração do Sequelize
-│   │   ├── controllers/
-│   │   ├── migrations/
+│   │   ├── config/             # Configuração específica do serviço de usuários
+│   │   │   └── config.json
+│   │   ├── controllers/        # Lógica das operações de negócio dos usuários
+│   │   ├── migrations/         # Scripts de migração para o banco de dados de usuários
 │   │   │   └── XXXXXX-create-usuario.js
-│   │   ├── models/
+│   │   ├── models/             # Modelos Sequelize do serviço de usuários
 │   │   │   ├── index.js
-│   │   │   └── usuario.js      # Modelo do Usuário
-│   │   ├── routes/
-│   │   │   └── usuarios.js     # Rotas de Usuários
-│   │   ├── services/
-│   ├── livros/                 # Serviço de Livros (não implementado)
+│   │   │   └── usuario.js
+│   │   ├── routes/             # Rotas para gerenciar usuários
+│   │   │   └── usuarios.js
+│   │   ├── services/           # Serviços e lógica adicional
+│   ├── livros/                 # Serviço de Livros
+│   │   ├── config/             # Configuração específica do serviço de livros
+│   │   │   └── config.json
 │   │   ├── controllers/
-│   │   ├── models/
+│   │   ├── migrations/         # Scripts de migração para o banco de dados de livros
+│   │   │   └── XXXXXX-create-livros.js
+│   │   ├── models/             # Modelos Sequelize do serviço de livros
+│   │   │   ├── index.js
+│   │   │   └── livro.js
 │   │   ├── routes/
 │   │   │   └── livros.js
 │   │   └── services/
-│   └── emprestimos/            # Serviço de Empréstimos (não implementado)
+│   └── emprestimos/            # Serviço de Empréstimos
+│       ├── config/             # Configuração específica do serviço de empréstimos
+│       │   └── config.json
 │       ├── controllers/
-│       ├── models/
+│       ├── migrations/         # Scripts de migração para o banco de dados de empréstimos
+│       │   └── XXXXXX-create-emprestimos.js
+│       ├── models/             # Modelos Sequelize do serviço de empréstimos
+│       │   ├── index.js
+│       │   └── emprestimo.js
 │       ├── routes/
 │       │   └── emprestimos.js
 │       └── services/
 ├── public/                     # Arquivos estáticos (CSS, JS, imagens)
 │   ├── css/
-│   │   ├── styles.css          # Arquivo de estilos - Não implementada
+│   │   └── styles.css          # Arquivo de estilos
 │   ├── js/
-│   │   ├── main.js             # Arquivo JavaScript principal - Não implementada
+│   │   └── main.js             # Arquivo JavaScript principal
 │   └── images/
-│       └── logo.png            # Imagem de logotipo - Não implementada
-├── views/                      # Arquivos de visualização (páginas HTML)
-│   ├── index.ejs              # Página inicial - construção inicial não finalizada.
-│   ├── usuarios.ejs           # Página para gerenciar usuários - Não implementada
-│   ├── livros.ejs             # Página para gerenciar livros - Não implementada
-│   └── emprestimos.ejs        # Página para gerenciar empréstimos - Não implementada
-├── .env                        # Variáveis de ambiente 
-├── package.json                # Configurações e scripts do projeto
-└── ... (outros arquivos e pastas)
+│       └── logo.png            # Logotipo
+├── views/                      # Templates para renderizar HTML com EJS
+│   ├── index.ejs               # Página inicial
+│   ├── usuarios.ejs            # Página para gerenciamento de usuários
+│   ├── livros.ejs              # Página para gerenciamento de livros
+│   └── emprestimos.ejs         # Página para gerenciamento de empréstimos
+├── .env                        # Variáveis de ambiente
+├── package.json                # Configurações e dependências do projeto
+└── ...                         # Outros arquivos e dependências necessárias
 ```
 
-## Requisitos
+---
 
-- Node.js
-- NPM (Node Package Manager)
-- SQLite
+## Migrações e Configurações
 
-## Configuração Local do Projeto
+### Configuração Geral
+
+A pasta `config/` contém o arquivo `config.json`, que define as configurações para conexão com o banco de dados para cada ambiente (desenvolvimento, teste e produção).
+
+### Migrações
+
+Cada serviço possui sua própria pasta `migrations/`, onde estão os scripts responsáveis por criar ou alterar as tabelas correspondentes no banco de dados.
+
+- **Exemplo de migração para o serviço de usuários (`usuarios`):**
+  ```javascript
+  module.exports = {
+    up: (queryInterface, Sequelize) => {
+      return queryInterface.createTable('usuarios', {
+        id: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        nome: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        email: {
+          type: Sequelize.STRING,
+          unique: true,
+          allowNull: false,
+        },
+        cpf: {
+          type: Sequelize.STRING,
+          unique: true,
+          allowNull: false,
+        },
+        nascimento: {
+          type: Sequelize.DATE,
+          allowNull: false,
+        },
+      });
+    },
+    down: (queryInterface, Sequelize) => {
+      return queryInterface.dropTable('usuarios');
+    },
+  };
+  ```
+
+Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo e script de migração.
+
+---
+
+## Configuração do Ambiente Local
 
 1. **Clone o repositório:**
    ```bash
    git clone <URL do seu repositório>
-   cd sistema-biblioteca
+   cd system-biblioteca
    ```
 
 2. **Instale as dependências:**
@@ -73,48 +139,125 @@ System-biblioteca/
    npm install
    ```
 
-3. **Configure o arquivo de variáveis de ambiente:**
-   Crie um arquivo `.env` na raiz do projeto e adicione suas variáveis de ambiente, se necessário.
+3. **Execute as migrações do banco de dados:**
+   ```bash
+   npx sequelize-cli db:migrate
+   ```
 
 4. **Inicie o servidor:**
    ```bash
    npm run dev
    ```
-   O servidor será iniciado na porta 3000.
+   O servidor será iniciado na porta `3000`. Você pode acessar em `http://localhost:3000`.
 
-## Uso com Insomnia
+---
 
-Para testar a API utilizando o Insomnia, você pode fazer as seguintes requisições:
+## Tecnologias Utilizadas
+
+- **Node.js**: Plataforma para execução do JavaScript no lado do servidor.
+- **Express**: Framework para criação de APIs RESTful.
+- **Sequelize**: ORM para integração com o banco de dados.
+- **SQLite**: Banco de dados leve e eficiente.
+- **EJS**: Template engine para renderização de páginas dinâmicas.
+
+## Funcionalidades
+
+### Serviço de Usuários
+- Cadastro, atualização e exclusão de usuários.
+- Busca de usuários por ID ou listagem completa.
+
+### Serviço de Livros
+- Cadastro de novos livros.
+- Atualização e remoção de livros.
+- Consulta de livros disponíveis.
+
+### Serviço de Empréstimos
+- Registro de empréstimos de livros.
+- Atualização de status de empréstimos.
+- Listagem de empréstimos ativos.
+
+---
+
+## Testando a API com Insomnia ou Postman
 
 ### Serviço de Usuários
 
-#### Cadastrar um novo usuário
+**Cadastrar um novo usuário**
 
-- **Método**: POST
-- **URL**: `http://localhost:3000/usuarios`
-- **Body** (JSON):
+- Método: POST
+- URL: `http://localhost:3000/usuarios`
+- Body (JSON):
   ```json
   {
-    "nome": "joao pedros",
-    "email": "joao.pedrop@example.com",
+    "nome": "João Pedro",
+    "email": "joao.pedro@example.com",
     "cpf": "12345678901",
     "nascimento": "1998-08-11"
   }
   ```
 
-#### Listar todos os usuários
+**Listar todos os usuários**
 
-- **Método**: GET
-- **URL**: `http://localhost:3000/usuarios`
+- Método: GET
+- URL: `http://localhost:3000/usuarios`
 
-#### Buscar um usuário específico por ID
+**Buscar um usuário por ID**
 
-- **Método**: GET
-- **URL**: `http://localhost:3000/usuarios/:id`
-  - Substitua `:id` pelo ID do usuário que deseja buscar.
+- Método: GET
+- URL: `http://localhost:3000/usuarios/:id`
+
+### Serviço de Livros
+
+**Cadastrar um novo livro**
+
+- Método: POST
+- URL: `http://localhost:3000/livros`
+- Body (JSON):
+  ```json
+  {
+    "titulo": "O Senhor dos Anéis",
+    "autor": "J.R.R. Tolkien"
+  }
+  ```
+
+### Serviço de Empréstimos
+
+**Registrar um empréstimo**
+
+- Método: POST
+- URL: `http://localhost:3000/emprestimos`
+- Body (JSON):
+  ```json
+  {
+    "usuarioId": 1,
+    "livroId": 1,
+    "dataEmprestimo": "2024-12-03T10:00:00Z",
+    "dataDevolucao": "2024-12-17T10:00:00Z"
+  }
+  ```
+
+---
 
 ## Contribuição
 
-Sinta-se à vontade para contribuir com este projeto. Crie uma nova branch, faça suas alterações e envie um pull request.
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 
+1. **Crie uma nova branch:**
+   ```bash
+   git checkout -b minha-nova-feature
+   ```
 
+2. **Faça suas alterações e adicione os commits:**
+   ```bash
+   git add .
+   git commit -m "Descrição da minha nova feature"
+   ```
+
+3. **Envie sua branch para o repositório remoto:**
+   ```bash
+   git push origin minha-nova-feature
+   ```
+
+4. **Abra um pull request no repositório original.**
+
+5. **Neste projeto foram construido apenas os microserviços ainda está em produção o front- end**
