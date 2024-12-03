@@ -237,8 +237,7 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
   {
     "usuarioId": 1,
     "livroId": 1,
-    "dataEmprestimo": "2024-12-03T10:00:00Z",
-    "dataDevolucao": "2024-12-17T10:00:00Z"
+    "dataEmprestimo": "2024-12-03T10:00:00Z"
   }
   ```
 
