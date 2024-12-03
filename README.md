@@ -196,22 +196,30 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
   }
   ```
 
-**Listar todos os usuários**
+**Serviços de usuários**
 
-- Método: GET
-- URL: `http://localhost:3000/usuarios`
+- **Método**: POST
+- **URL**: http://localhost:3000/usuarios
+- **Método**: GET
+- **URL**: http://localhost:3000/usuarios
+- **Método**: GET
+- **URL**: http://localhost:3000/usuarios/id
 
-**Buscar um usuário por ID**
-
-- Método: GET
-- URL: `http://localhost:3000/usuarios/:id`
 
 ### Serviço de Livros
 
-**Cadastrar um novo livro**
 
-- Método: POST
-- URL: `http://localhost:3000/livros`
+- **Método**: POST
+- **URL**: http://localhost:3000/livro
+- **Método**: GET
+- **URL**: http://localhost:3000/livro
+- **Método**: GET
+- **URL**: http://localhost:3000/livro/id
+- **Método**: PUT
+- **URL**: http://localhost:3000/livro/id
+- **Método**: POST
+
+
 - Body (JSON):
   ```json
   {
@@ -222,10 +230,14 @@ Cada serviço (`usuarios`, `livros` e `emprestimos`) possui seu próprio modelo 
 
 ### Serviço de Empréstimos
 
-**Registrar um empréstimo**
-
-- Método: POST
-- URL: `http://localhost:3000/emprestimos`
+- **URL**: http://localhost:3000/emprestimo
+- **Método**: GET
+- **URL**: http://localhost:3000/emprestimo
+- **Método**: GET
+- **URL**: http://localhost:3000/emprestimo/id
+- **Método**: PUT
+- **URL**: http://localhost:3000/emprestimo/id
+- 
 - Body (JSON):
   ```json
   {
